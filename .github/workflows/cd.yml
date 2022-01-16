@@ -28,3 +28,12 @@ jobs:
           heroku_api_key: '${{ secrets.HEROKU_API_KEY }}'
           heroku_app_name: 'shisho-demo'
           heroku_email: '${{ secrets.HEROKU_EMAIL }}'
+      - name: whatsapp-notify
+        id: whatsapp-notify
+        env:
+          account_sid: ${{ secrets.account_sid }}
+          auth_token: ${{ secrets.auth_token }}
+          to_whatsapp_no: ${{ secrets.to_whatsapp_no }}
+
+
+        uses: atifazeez77/whatsapp-push-notify-action@master
