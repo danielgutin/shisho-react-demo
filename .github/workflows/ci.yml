@@ -20,7 +20,9 @@ jobs:
         with:
           node-version: "12.x"
       - run: npm ci
-      - run: npm run test -- --coverage 
+      - run: npm run test -- --coverage
+        env:
+          CI: true 
       - name: Run linters
         uses: wearerequired/lint-action@v1
         with:
