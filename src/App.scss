@@ -1,0 +1,26 @@
+.shisho__header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 2rem;
+
+  .shisho__logo {
+      height: 18rem;
+      width: 18rem;
+  }
+
+  .shisho__description {
+      text-align: center;
+      letter-spacing: 0.2rem;
+      font-size: 1.2rem;
+      line-height: 2.5rem;
+  }
+
+}
+
+.shisho__main {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}

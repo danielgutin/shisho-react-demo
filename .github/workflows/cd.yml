@@ -1,0 +1,20 @@
+name: CD Shisho demo
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project content
+        uses: actions/checkout@v2
+      - name: Build project
+        run: npm run build
+      - name: Deploy to heroku
+        uses: akhileshns/heroku-deploy@v3.4.6
+        with:
+          heroku_api_key: '${{ secrets.HEROKU_API_KEY }}'
+          heroku_app_name: 'shisho-demo'
+          heroku_email: '${{ secrets.HEROKU_EMAIL }}'
