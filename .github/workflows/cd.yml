@@ -10,6 +10,16 @@ jobs:
     steps:
       - name: Checkout project content
         uses: actions/checkout@v2
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}    
+      - name: Install nodeJS with version 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - run: npm ci
       - name: Build project
         run: npm run build
       - name: Deploy to heroku
