@@ -27,3 +27,9 @@ jobs:
         uses: wearerequired/lint-action@v1
         with:
           eslint: true
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
