@@ -26,10 +26,7 @@ jobs:
             ${{ runner.os }}-
       - name: Install dependencies
         if: steps.cache-dependencies.outputs.cache-hit != 'true'
-        run: |
-          npm ci
-        env:
-          CI: false 
+        run: npm ci
 
   # Check for linting ( using ESlint )
   lint-check:
@@ -51,6 +48,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-build-
             ${{ runner.os }}-
+      - name: Install dependencies
+        if: steps.cache-dependencies.outputs.cache-hit != 'true'
+        run: npm ci
       - name: Run linters
         uses: wearerequired/lint-action@v1
         with:
@@ -76,6 +76,9 @@ jobs:
             restore-keys: |
               ${{ runner.os }}-build-
               ${{ runner.os }}-
+        - name: Install dependencies
+          if: steps.cache-dependencies.outputs.cache-hit != 'true'
+          run: npm ci
         - run: npm run test -- --coverage
           env:
             CI: true 
@@ -100,6 +103,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-build-
             ${{ runner.os }}-
+      - name: Install dependencies
+        if: steps.cache-dependencies.outputs.cache-hit != 'true'
+        run: npm ci
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
         env:
