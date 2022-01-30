@@ -50,9 +50,10 @@ jobs:
           path: node_modules
           key: node-modules-${{ hashFiles('package-lock.json') }}
 
-      - name: Install dependencies
-        if: steps.cache-dependencies.outputs.cache-hit != 'true'
-        run: npm ci
+      # - name: Install dependencies
+      #   if: steps.cache-dependencies.outputs.cache-hit != 'true'
+      #   run: npm ci
+
       - name: Run linters
         uses: wearerequired/lint-action@v1
         with:
