@@ -19,7 +19,7 @@ jobs:
         uses: actions/cache@v2
         id: cache-dependencies
         with:
-          path: ~/.npm
+          path: node_modules
           key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-
@@ -28,6 +28,8 @@ jobs:
         if: steps.cache-dependencies.outputs.cache-hit != 'true'
         run: |
           npm ci
+        env:
+          CI: false 
 
   # Check for linting ( using ESlint )
   lint-check:
@@ -44,7 +46,7 @@ jobs:
         uses: actions/cache@v2
         id: cache-dependencies
         with:
-          path: ~/.npm
+          path: node_modules
           key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-
@@ -69,7 +71,7 @@ jobs:
           uses: actions/cache@v2
           id: cache-dependencies
           with:
-            path: ~/.npm
+            path: node_modules
             key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
             restore-keys: |
               ${{ runner.os }}-build-
@@ -93,7 +95,7 @@ jobs:
         uses: actions/cache@v2
         id: cache-dependencies
         with:
-          path: ~/.npm
+          path: node_modules
           key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-
