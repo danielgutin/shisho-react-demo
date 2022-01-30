@@ -4,29 +4,41 @@ on:
   push:
     branches: [master]
 jobs:
-  build-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout project content
         uses: actions/checkout@v2
-      - name: Cache node_modules
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}    
+
       - name: Install nodeJS with version 12.x
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-      - run: npm ci
+
+      - name: Restore dependencies
+        uses: actions/cache@v2
+        id: cache-node-modules
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('package-lock.json') }}
+
+      - name: Install dependencies
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: npm ci
+
       - name: Build project
         run: npm run build
+
       - name: Deploy to heroku
         uses: akhileshns/heroku-deploy@v3.4.6
         with:
           heroku_api_key: '${{ secrets.HEROKU_API_KEY }}'
           heroku_app_name: 'shisho-demo'
           heroku_email: '${{ secrets.HEROKU_EMAIL }}'
+
+  whatsapp-notification:
+    runs-on: ubuntu-latest
+    steps:
       - name: whatsapp-notify
         id: whatsapp-notify
         env:
@@ -34,3 +46,4 @@ jobs:
           auth_token: ${{ secrets.auth_token }}
           to_whatsapp_no: ${{ secrets.to_whatsapp_no }}
         uses: atifazeez77/whatsapp-push-notify-action@master
+  
