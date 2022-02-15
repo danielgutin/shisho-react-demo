@@ -42,7 +42,7 @@ export default function App() {
     <header className='shisho__header'>
       <img className='shisho__logo' src={shisho_logo} alt="Shisho Application" />
       <p className='shisho__description'>
-        Let Granny locate books for you, tell me what book exactly you are looking for
+        Let Granny search books for you, tell me what book exactly you are looking for
       </p>
       <SearchField 
         value={query}
