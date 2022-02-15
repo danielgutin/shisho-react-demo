@@ -5,7 +5,7 @@ on:
     branches: [master]
 
 jobs:
-  # Install dependencies once, and use them for all other jobs
+  # --- Install dependencies once, and use them for all other jobs
   install-cache:
     runs-on: ubuntu-latest
     steps:
@@ -30,7 +30,7 @@ jobs:
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci
 
-  # Check for linting ( using ESlint )
+  # --- Check for lint issues( using ESlint )
   lint-check:
     runs-on: ubuntu-latest
     needs: install-cache
@@ -55,7 +55,7 @@ jobs:
         with:
           eslint: true
 
-  # execute unit tests  
+  # --- execute unit tests  
   unit-test:
       runs-on: ubuntu-latest
       needs: install-cache
