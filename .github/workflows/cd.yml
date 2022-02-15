@@ -39,6 +39,7 @@ jobs:
           
   # --- send whatsapp notification on successful deployment 
   whatsapp-notification:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: whatsapp-notify
