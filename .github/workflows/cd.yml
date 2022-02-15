@@ -4,6 +4,7 @@ on:
   push:
     branches: [master]
 jobs:
+  # --- Restore dependencies from cache if possible, install & build the project, and deploy to heroku
   build:
     runs-on: ubuntu-latest
     steps:
@@ -35,7 +36,8 @@ jobs:
           heroku_api_key: '${{ secrets.HEROKU_API_KEY }}'
           heroku_app_name: 'shisho-demo'
           heroku_email: '${{ secrets.HEROKU_EMAIL }}'
-
+          
+  # --- send whatsapp notification on successful deployment 
   whatsapp-notification:
     runs-on: ubuntu-latest
     steps:
